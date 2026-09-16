@@ -59,19 +59,13 @@ def quartil(dados):
 def coef_var(dados):
     return (desvio_padrao(dados) / media(dados)) * 100
 
-def covariancia(dados_x, dados_y):
+def covariancia(dados_x, dados_y, amostral = True):
     media_x = media(dados_x)
     media_y = media(dados_y)
-    return sum((x - media_x) * (y - media_y) for x, y in zip(dados_x, dados_y)) / (len(dados_x) - 1)
+    return sum((x - media_x) * (y - media_y) for x, y in zip(dados_x, dados_y)) / (len(dados_x) - 1 if amostral else len(dados_x))
 
 def correlacao(dados_x, dados_y):
     cov = covariancia(dados_x, dados_y)
     desvio_x = desvio_padrao(dados_x)
     desvio_y = desvio_padrao(dados_y)
     return cov / (desvio_x * desvio_y)
-
-import numpy as np
-teste = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-teste2 = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
-print(correlacao(teste, teste2))
-print(np.corrcoef(teste, teste2)[0, 1])  # Saída: -1.0
