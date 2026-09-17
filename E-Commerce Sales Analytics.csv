@@ -1,4 +1,4 @@
-order_id,order_date,customer_id,Categoria do Produto,Região,Quantidade,Preço Unitario,Desconto,Método de Pagamento,Tempo de entrega,customer_rating,Receita
+order_id,order_date,customer_id,Categoria do Produto,Região,Quantidade,Preço Unitario,Desconto,Método de Pagamento,Tempo de entrega,Avaliação do Cliente,Receita
 10001,1/1/2022,1102,Beauty,South,7,373.65,0.28,Wallet,10,4.7,1883.2
 10002,1/2/2022,1435,Clothing,South,7,47.74,0.09,Card,6,3.9,304.1
 10003,1/3/2022,1860,Beauty,East,3,311.28,0.31,COD,6,2.5,644.35
