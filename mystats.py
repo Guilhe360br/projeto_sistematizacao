@@ -69,3 +69,5 @@ def correlacao(dados_x, dados_y):
     desvio_x = desvio_padrao(dados_x)
     desvio_y = desvio_padrao(dados_y)
     return cov / (desvio_x * desvio_y)
+
+
