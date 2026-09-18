@@ -70,4 +70,15 @@ def correlacao(dados_x, dados_y):
     desvio_y = desvio_padrao(dados_y)
     return cov / (desvio_x * desvio_y)
 
+def regressao_linear(x, y):
+    x_media = media(x)
+    y_media =  media(y)
+    b1 = sum((x - x_media) * (y - y_media)) / sum((x - x_media)**2)
+    b0 = y_media - b1 * x_media
+    return b0, b1
 
+def r_quadrado(x, y, b0, b1):
+    y_pred = b0 + b1 * x
+    ss_res = sum((y - y_pred)**2)
+    ss_tot = sum((y - media(y))**2)
+    return 1 - (ss_res / ss_tot)

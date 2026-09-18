@@ -3,7 +3,7 @@ import pandas as pd
 import streamlit as st
 import math
 import matplotlib.pyplot as plt
-from mystats import media, mediana, moda, variancia, desvio_padrao, desvios, amplitude, percentil, quartil, coef_var, covariancia, correlacao
+from mystats import media, mediana, moda, variancia, desvio_padrao, desvios, amplitude, percentil, quartil, coef_var, covariancia, correlacao, regressao_linear, r_quadrado
 
 df_performance = pd.read_csv("student_performance_dataset.csv", sep = ",")
 
@@ -21,10 +21,7 @@ df_amostra = gerar_amostra(df_performance[opcao], n = qtd_amostra)
 
 
 # APRESENTACAO DO GRAFICOS
-if df_amostra.dtype == 'str':
-    st.bar_chart(df_amostra.value_counts())
-    st.write("Moda: ", moda(df_amostra))
-else:
+if pd.api.types.is_numeric_dtype(df_amostra):
     # MEDIDAS DE TENDÊNCIA CENTRAL
     st.write("MEDIDAS DE TENDÊNCIA CENTRAL")
     fig1, ax1 = plt.subplots()
@@ -52,11 +49,14 @@ else:
 
     fig3, ax3 = plt.subplots()
     q1, q2, q3 = quartil(df_amostra)
-    ax3.boxplot(df_amostra)
+    ax3.boxplot(df_amostra, vert=False)
     ax3.set_ylabel(opcao)
     ax3.set_title('Boxplot com Quartis')
     st.pyplot(fig3)
     st.write(f"Quartis: Q1 = {q1:.2f}, Q2 = {q2:.2f}, Q3 = {q3:.2f}, IQR = {q3 - q1:.2f}")
+else:
+    st.bar_chart(df_amostra.value_counts())
+    st.write("Moda: ", moda(df_amostra))
     
 
 #filtros para Modulo 3
@@ -97,7 +97,7 @@ ax5.axvline(media(df_performance[prob_sim]) , color='red', linestyle='dashed', l
 ax5.legend()
 st.pyplot(fig5)
 
-#VARIAVEIS/CALCULOS PARA CURVA DE DISTRIBUICAO NORMAL E EXPONENCIAL
+#VARIAVEIS/CALCULOS PARA AS CURVAS DE DISTRIBUICAO NORMAL E EXPONENCIAL
 st.title("Módulo 4 — Distribuições Teóricas")
 
 variavel_escolhida = df_performance["study_time_hours"]
@@ -109,6 +109,7 @@ y_normal = (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((x - mu) / sigma)
 y_exponencial = lambda_ * np.exp(-lambda_ * x)
 
 fig6, ax6 = plt.subplots()
+
 ax6.set_title(f'Histograma de Study Time Hours')
 ax6.set_xlabel("Study Time Hours")
 ax6.set_ylabel('DENSIDADE')
@@ -118,12 +119,32 @@ ax6.plot(x, y_exponencial, color='green', linewidth=2, label='Distribuição Exp
 ax6.legend()
 st.pyplot(fig6)
 
-
 st.title("Módulo 5 — Correlação e Regressão Linear")
 variavel1 = st.selectbox("Selecione a primeira variavel", ["study_time_hours","sleep_hours","attendance_percent", "final_exam_score"])
 variavel2 = st.selectbox("Selecione a segunda variavel", ["study_time_hours","sleep_hours","attendance_percent", "final_exam_score"])
 
+
+# CALCULOS PARA CORRELACAO, REGRESSAO LINEAR E R2
+b0, b1 = regressao_linear(df_performance[variavel1], df_performance[variavel2])
+correlacao_ = correlacao(df_performance[variavel1], df_performance[variavel2])
+r2 = r_quadrado(df_performance[variavel1], df_performance[variavel2], b0, b1)
+
+
 fig7, ax7 = plt.subplots()
 
 ax7.scatter(df_performance[variavel1],df_performance[variavel2])
+ax7.plot(x, b0 + b1*x, color="red", label="Regressão Linear")
+ax7.set_xlabel(variavel1)
+ax7.set_ylabel(variavel2)
+
+
+st.write(f"Correlação: {correlacao_:.2f}")
 st.pyplot(fig7)
+st.write(f"**Equação da reta:** Ŷ = b0 + b1X")
+st.write(f"**R²:** {r2:.2f}  |  Correlação: {correlacao_:.2f}")
+
+#predição interativa
+x_input = st.number_input("Digite um valor de X para prever Ŷ:")
+if x_input:
+        y_pred = b0 + b1 * x_input
+        st.write(f"Predição: Para X={x_input}, Ŷ={y_pred:.4f}")
