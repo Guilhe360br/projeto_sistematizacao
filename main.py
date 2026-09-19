@@ -13,14 +13,14 @@ def gerar_amostra(dados, n):
 
 st.title("Módulo 2 — Estatística Descritiva Interativa")
 #AREA DOS FILTROS 
-st.sidebar.header("Filtros")
-opcao = st.sidebar.selectbox(" Escolha a variável para análise:",["gender","study_time_hours","sleep_hours","parental_education","attendance_percent", "final_exam_score"])
-qtd_amostra = st.sidebar.select_slider("Quantidade da Amostra", range(1, len(df_performance[opcao])), value= 500)
+st.header("Filtros")
+opcao = st.selectbox(" Escolha a variável para análise:",["gender","study_time_hours","sleep_hours","parental_education","attendance_percent", "final_exam_score"])
+qtd_amostra = st.select_slider("Quantidade da Amostra", range(1, len(df_performance[opcao])), value= 500)
 df_amostra = gerar_amostra(df_performance[opcao], n = qtd_amostra)
 
 
 
-# APRESENTACAO DO GRAFICOS
+# APRESENTACAO DOS GRAFICOS
 if pd.api.types.is_numeric_dtype(df_amostra):
     # MEDIDAS DE TENDÊNCIA CENTRAL
     st.write("MEDIDAS DE TENDÊNCIA CENTRAL")
@@ -129,22 +129,33 @@ b0, b1 = regressao_linear(df_performance[variavel1], df_performance[variavel2])
 correlacao_ = correlacao(df_performance[variavel1], df_performance[variavel2])
 r2 = r_quadrado(df_performance[variavel1], df_performance[variavel2], b0, b1)
 
-
+#GRAFICO DE DISPERSAO ENTRE 2 VARIAVEIS
 fig7, ax7 = plt.subplots()
-
 ax7.scatter(df_performance[variavel1],df_performance[variavel2])
 ax7.plot(x, b0 + b1*x, color="red", label="Regressão Linear")
 ax7.set_xlabel(variavel1)
 ax7.set_ylabel(variavel2)
-
-
-st.write(f"Correlação: {correlacao_:.2f}")
 st.pyplot(fig7)
+
 st.write(f"**Equação da reta:** Ŷ = b0 + b1X")
-st.write(f"**R²:** {r2:.2f}  |  Correlação: {correlacao_:.2f}")
+st.write(f"**R²:** {r2:.2f}")
+
+correlacao_abs = abs(correlacao_)
+
+if 0 <= correlacao_abs < 0.2:
+    st.write(f"Correlação: {correlacao_:.2f}  |  Insignificante")
+elif 0.2 <= correlacao_abs < 0.5:
+    st.write(f"Correlação: {correlacao_:.2f}  |  Fraca")
+elif 0.5 <= correlacao_abs < 0.8:
+    st.write(f"Correlação: {correlacao_:.2f}  |  Moderada")
+elif 0.8 <= correlacao_abs <= 1:
+    st.write(f"Correlação: {correlacao_:.2f}  |  Forte")
+else:
+    st.write(f"Correlação: {correlacao_:.2f}  |  Fora do intervalo esperado")
+
 
 #predição interativa
 x_input = st.number_input("Digite um valor de X para prever Ŷ:")
 if x_input:
-        y_pred = b0 + b1 * x_input
-        st.write(f"Predição: Para X={x_input}, Ŷ={y_pred:.4f}")
+    y_pred = b0 + b1 * x_input
+    st.write(f"Predição: Para X={x_input}, Ŷ={y_pred:.4f}")
