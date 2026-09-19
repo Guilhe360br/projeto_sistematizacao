@@ -70,15 +70,27 @@ def correlacao(dados_x, dados_y):
     desvio_y = desvio_padrao(dados_y)
     return cov / (desvio_x * desvio_y)
 
-def regressao_linear(x, y):
-    x_media = media(x)
-    y_media =  media(y)
-    b1 = sum((x - x_media) * (y - y_media)) / sum((x - x_media)**2)
-    b0 = y_media - b1 * x_media
-    return b0, b1
+def interpretar_assimetria(media_valor, mediana_valor, desvio):
+    diferenca = media_valor - mediana_valor
 
-def r_quadrado(x, y, b0, b1):
-    y_pred = b0 + b1 * x
-    ss_res = sum((y - y_pred)**2)
-    ss_tot = sum((y - media(y))**2)
-    return 1 - (ss_res / ss_tot)
+    if diferenca > 0.3 * desvio:
+        return "Assimetria à direita"
+
+    elif diferenca < -0.3 * desvio:
+        return "Assimetria à esquerda"
+
+    else:
+        return "Aproximadamente simétrica"
+
+def regressao_linear(x, y):
+    """Minimos quadrados simples. Retorna (b0, b1, r2)."""
+    mx, my = media(x), media(y)
+    b1 = sum((xi-mx)*(yi-my) for xi, yi in zip(x, y)) / \
+         sum((xi-mx)**2 for xi in x)
+    b0 = my - b1*mx
+    yhat = [b0 + b1*xi for xi in x]
+    sq_res = sum((yi-yh)**2 for yi, yh in zip(y, yhat))
+    sq_tot = sum((yi-my)**2 for yi in y)
+    r2 = 1 - sq_res/sq_tot
+    return b0, b1, r2
+

@@ -1,6 +1,6 @@
 import numpy as np
 import test_mystats
-from mystats import media, mediana, moda, variancia, desvio_padrao, desvios, amplitude, percentil, quartil, coef_var, covariancia, correlacao, regressao_linear, r_quadrado
+from mystats import media, mediana, moda, variancia, desvio_padrao, desvios, amplitude, percentil, quartil, coef_var, covariancia, correlacao, regressao_linear
 
 
 
