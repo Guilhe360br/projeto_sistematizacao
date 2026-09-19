@@ -159,9 +159,11 @@ elif 0.8 <= correlacao_abs <= 1:
 else:
     st.write(f"Correlação: {correlacao_:.2f}  |  Fora do intervalo esperado")
 
-
+st.write("Correlação não implica causalidade")
 #predição interativa
 x_input = st.number_input("Digite um valor de X para prever Ŷ:")
-if x_input:
-    y_pred = b0 + b1 * x_input
+y_pred = b0 + b1 * x_input
+if x_input > max(df_performance[variavel1]):
+    st.write("AVISO: O VALOR EXTRAPOLOU")
+else:
     st.write(f"Predição: Para X={x_input}, Ŷ={y_pred:.4f}")
