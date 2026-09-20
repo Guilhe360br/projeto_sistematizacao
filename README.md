@@ -10,4 +10,4 @@ INSTRUÇÕES DE EXECUÇÃO
 
 `streamlit run main.py`
 
-![Demonstração do App](gifdemo.gif)
+![Demonstração do App](docs/gifdemo.gif)
