@@ -220,24 +220,24 @@ O $R^2$ representa a proporção da variabilidade de $Y$ explicada pelo modelo d
 
 ## 4. Validação dos testes
 
-<img src="docs/validacao_teste.jpeg" alt="validacao de testes" width="100%" />
+<img src="docs/validacao_teste.png" alt="validacao de testes" width="60%" />
 
 # 5. Prints/explicação de cada módulo
-<img src="docs/Modulo 2.jpeg" alt="Modulo 2" width="100%" />
-<img src="docs/Modulo 2-2.jpeg" alt="Modulo 2-2" width="100%" />
+<img src="docs/Modulo 2.jpeg" alt="Modulo 2" width="60%" />
+<img src="docs/Modulo 2-2.jpeg" alt="Modulo 2-2" width="60%" />
 
 Neste módulo, inclui o selectbox para quando selecionar uma variavel categórica apresentasse o grafico de barra, enquanto para as variáveis numéricas apresentasse o histograma(com linha de média, mediana e moda), o grafico de dispersão(com a faixa designando ± Desvio Padrão) e boxplot com a regra IQR, o usuário também pode escolher o tamanho da amostra(O valor máximo é populacional).
 
-<img src="docs/Modulo 3 - LGN.jpeg" alt="LGN" width="100%" />
-<img src="docs/Modulo 3 - TCL.jpeg" alt="LGN" width="100%" />
+<img src="docs/Modulo 3 - LGN.jpeg" alt="LGN" width="60%" />
+<img src="docs/Modulo 3 - TCL.jpeg" alt="LGN" width="60%" />
 
 O módulo começa apresentando a Lei dos grandes números e com o gráfico podemos observar que há medida que o tamanho da amostra aumenta a média acumulada da variável escolhida se aproxima da média esperada, enquanto que na da Teoria central do limite nós observamos que na medida que aumentamos o numero de repetições, o gráfico começa representar uma distribuição normal.
 
-<img src="docs/Modulo 4.jpeg" alt="Curvas teoricas" width="100%" />
+<img src="docs/Modulo 4.jpeg" alt="Curvas teoricas" width="60%" />
 
 O histograma da variável YearsAtCompany, apresenta uma distribuição assimétrica que não se encaixa muito bem com a curva normal, enquanto que a curva exponencial apresenta uma adequação melhor com a variável.
 
-<img src="docs/Modulo 5.jpeg" alt="Correlacao e Regressão Linear" width="100%" />
+<img src="docs/Modulo 5.jpeg" alt="Correlacao e Regressão Linear" width="60%" />
 
 Neste módulo o usuário pode escolher 2 variáveis numéricas para obter um gráfico com correlação entre elas, onde encontrará os dados com uma linha representando a regressão linear, e também pode digitar um valor para prever Ŷ.
 
